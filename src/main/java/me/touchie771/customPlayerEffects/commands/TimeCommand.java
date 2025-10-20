@@ -1,4 +1,4 @@
-package me.touchie771.customPlayerEffects;
+package me.touchie771.customPlayerEffects.commands;
 
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;

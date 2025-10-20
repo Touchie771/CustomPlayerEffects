@@ -1,5 +1,6 @@
-package me.touchie771.customPlayerEffects;
+package me.touchie771.customPlayerEffects.listeners;
 
+import me.touchie771.customPlayerEffects.commands.WeatherCommand;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.WeatherType;

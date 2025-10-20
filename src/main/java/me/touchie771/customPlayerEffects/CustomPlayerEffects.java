@@ -2,6 +2,10 @@ package me.touchie771.customPlayerEffects;
 
 import dev.rollczi.litecommands.LiteCommands;
 import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
+import me.touchie771.customPlayerEffects.commands.TimeCommand;
+import me.touchie771.customPlayerEffects.commands.WeatherCommand;
+import me.touchie771.customPlayerEffects.listeners.TimeMenuListener;
+import me.touchie771.customPlayerEffects.listeners.WeatherMenuListener;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
