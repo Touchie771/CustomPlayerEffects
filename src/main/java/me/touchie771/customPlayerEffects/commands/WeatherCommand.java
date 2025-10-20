@@ -1,6 +1,5 @@
 package me.touchie771.customPlayerEffects.commands;
 
-import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
@@ -15,16 +14,16 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
-@Command(name = "setweather")
+@dev.rollczi.litecommands.annotations.command.Command(name = "setweather")
 @Permission("customplayereffects.weather")
-public record WeatherCommand() {
+public record WeatherCommand() implements Command {
 
     public static final @NotNull Component MENU_TITLE = Component.text("Weather Menu",
             NamedTextColor.LIGHT_PURPLE, TextDecoration.BOLD);
     public static final int MENU_SIZE = 27;
 
-    @Execute
-    public void setWeather(@Context Player player) {
+    @Override
+    public Inventory getMenu() {
         Inventory weatherMenu = Bukkit.createInventory(null, MENU_SIZE, MENU_TITLE);
 
         ItemStack clearWeather = new ItemStack(Material.SUNFLOWER, 1);
@@ -51,6 +50,12 @@ public record WeatherCommand() {
         resetWeather.setItemMeta(resetWeatherMeta);
         weatherMenu.setItem(22, resetWeather);
 
-        player.openInventory(weatherMenu);
+        fillMenu(weatherMenu);
+        return weatherMenu;
+    }
+
+    @Execute
+    public void setWeather(@Context Player player) {
+        player.openInventory(getMenu());
     }
 }

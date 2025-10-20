@@ -1,6 +1,5 @@
 package me.touchie771.customPlayerEffects.commands;
 
-import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
@@ -16,15 +15,15 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
-@Command(name = "settime")
+@dev.rollczi.litecommands.annotations.command.Command(name = "settime")
 @Permission("customplayereffects.time")
-public record TimeCommand() {
+public record TimeCommand() implements Command {
 
     public static final @NotNull TextComponent MENU_TITLE = Component.text("Time Menu", NamedTextColor.LIGHT_PURPLE, TextDecoration.BOLD);
     public static final int MENU_SIZE = 27;
 
-    @Execute
-    public void setTime(@Context Player player) {
+    @Override
+    public Inventory getMenu() {
         Inventory timeMenu = Bukkit.createInventory(null, MENU_SIZE, MENU_TITLE);
 
         ItemStack dayTime = new ItemStack(Material.SUNFLOWER, 1);
@@ -57,6 +56,12 @@ public record TimeCommand() {
         midnightTime.setItemMeta(midnightTimeMeta);
         timeMenu.setItem(15, midnightTime);
 
-        player.openInventory(timeMenu);
+        fillMenu(timeMenu);
+        return timeMenu;
+    }
+
+    @Execute
+    public void setTime(@Context Player player) {
+        player.openInventory(getMenu());
     }
 }
