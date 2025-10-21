@@ -12,6 +12,8 @@ permissions:
     children:
       customplayereffects.time: true
       customplayereffects.weather: true
+      customplayereffects.fly: true
+      customplayereffects.speed: true
   
   customplayereffects.time:
     description: Allows using the /settime command
@@ -19,4 +21,12 @@ permissions:
   
   customplayereffects.weather:
     description: Allows using the /setweather command
+    default: op
+  
+  customplayereffects.fly:
+    description: Allows using the /fly command
+    default: op
+  
+  customplayereffects.speed:
+    description: Allows using the /speed command
     default: op
