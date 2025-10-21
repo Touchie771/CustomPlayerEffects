@@ -14,6 +14,7 @@ permissions:
       customplayereffects.weather: true
       customplayereffects.fly: true
       customplayereffects.speed: true
+      customplayereffects.potion: true
   
   customplayereffects.time:
     description: Allows using the /settime command
@@ -29,4 +30,8 @@ permissions:
   
   customplayereffects.speed:
     description: Allows using the /speed command
+    default: op
+  
+  customplayereffects.potion:
+    description: Allows using the /setpotion command
     default: op

@@ -3,10 +3,12 @@ package me.touchie771.customPlayerEffects;
 import dev.rollczi.litecommands.LiteCommands;
 import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
 import me.touchie771.customPlayerEffects.commands.FlyCommand;
+import me.touchie771.customPlayerEffects.commands.PotionCommand;
 import me.touchie771.customPlayerEffects.commands.SpeedCommand;
 import me.touchie771.customPlayerEffects.commands.TimeCommand;
 import me.touchie771.customPlayerEffects.commands.WeatherCommand;
 import me.touchie771.customPlayerEffects.listeners.FlyMenuListener;
+import me.touchie771.customPlayerEffects.listeners.PotionMenuListener;
 import me.touchie771.customPlayerEffects.listeners.SpeedMenuListener;
 import me.touchie771.customPlayerEffects.listeners.TimeMenuListener;
 import me.touchie771.customPlayerEffects.listeners.WeatherMenuListener;
@@ -24,6 +26,7 @@ public final class CustomPlayerEffects extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new TimeMenuListener(), this);
         this.getServer().getPluginManager().registerEvents(new FlyMenuListener(), this);
         this.getServer().getPluginManager().registerEvents(new SpeedMenuListener(), this);
+        this.getServer().getPluginManager().registerEvents(new PotionMenuListener(), this);
 
         // Setup LiteCommands
         this.liteCommands = LiteBukkitFactory.builder()
@@ -31,7 +34,8 @@ public final class CustomPlayerEffects extends JavaPlugin {
                         new WeatherCommand(),
                         new TimeCommand(),
                         new FlyCommand(),
-                        new SpeedCommand()
+                        new SpeedCommand(),
+                        new PotionCommand()
                 )
                 .build();
 
