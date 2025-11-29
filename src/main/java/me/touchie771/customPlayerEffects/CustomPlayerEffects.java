@@ -35,12 +35,12 @@ public final class CustomPlayerEffects extends JavaPlugin {
         // Setup LiteCommands
         this.liteCommands = LiteBukkitFactory.builder()
                 .commands(
-                        new WeatherCommand(),
-                        new TimeCommand(),
-                        new FlyCommand(),
-                        new SpeedCommand(),
-                        new PotionCommand(),
-                        new ParticleCommand()
+                        new WeatherCommand(this),
+                        new TimeCommand(this),
+                        new FlyCommand(this),
+                        new SpeedCommand(this),
+                        new PotionCommand(this),
+                        new ParticleCommand(this)
                 )
                 .build();
 

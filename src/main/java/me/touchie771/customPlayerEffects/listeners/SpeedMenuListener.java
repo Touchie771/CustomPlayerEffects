@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.jetbrains.annotations.NotNull;
 
-public record SpeedMenuListener() implements Listener {
+public class SpeedMenuListener implements Listener {
 
     @EventHandler
     public void onSpeedSet(@NotNull InventoryClickEvent event) {

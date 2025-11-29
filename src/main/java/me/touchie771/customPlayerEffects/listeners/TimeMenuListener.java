@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.jetbrains.annotations.NotNull;
 
-public record TimeMenuListener() implements Listener {
+public class TimeMenuListener implements Listener {
 
     @EventHandler
     public void onTimeSet(@NotNull InventoryClickEvent event) {

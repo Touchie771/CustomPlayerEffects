@@ -10,7 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.jetbrains.annotations.NotNull;
 
-public record WeatherMenuListener() implements Listener {
+public class WeatherMenuListener implements Listener {
 
     @EventHandler
     public void onWeatherSet(@NotNull InventoryClickEvent event) {

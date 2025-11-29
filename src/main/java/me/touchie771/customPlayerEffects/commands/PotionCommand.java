@@ -3,172 +3,155 @@ package me.touchie771.customPlayerEffects.commands;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
+import me.touchie771.minecraftGUI.api.Menu;
+import me.touchie771.minecraftGUI.api.SlotItem;
+import me.touchie771.customPlayerEffects.utils.MenuUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @dev.rollczi.litecommands.annotations.command.Command(name = "setpotion")
 @Permission("customplayereffects.potion")
-public record PotionCommand() implements Command {
+public class PotionCommand {
 
     public static final @NotNull TextComponent MENU_TITLE = Component.text("Potion Effects Menu", NamedTextColor.LIGHT_PURPLE, TextDecoration.BOLD);
     public static final int MENU_SIZE = 45;
 
-    @Override
-    public Inventory getMenu() {
-        Inventory potionMenu = Bukkit.createInventory(null, MENU_SIZE, MENU_TITLE);
+    private final Plugin plugin;
+    private Menu menu;
 
-        ItemStack speed = new ItemStack(Material.SUGAR, 1);
-        ItemMeta speedMeta = speed.getItemMeta();
-        speedMeta.displayName(Component.text("Speed", NamedTextColor.AQUA, TextDecoration.BOLD));
-        speedMeta.lore(List.of(
-                Component.text("Increases movement speed", NamedTextColor.GRAY)
-        ));
-        speed.setItemMeta(speedMeta);
-        potionMenu.setItem(10, speed);
+    public PotionCommand(Plugin plugin) {
+        this.plugin = plugin;
+    }
 
-        ItemStack jumpBoost = new ItemStack(Material.RABBIT_FOOT, 1);
-        ItemMeta jumpBoostMeta = jumpBoost.getItemMeta();
-        jumpBoostMeta.displayName(Component.text("Jump Boost", NamedTextColor.GREEN, TextDecoration.BOLD));
-        jumpBoostMeta.lore(List.of(
-                Component.text("Increases jump height", NamedTextColor.GRAY)
-        ));
-        jumpBoost.setItemMeta(jumpBoostMeta);
-        potionMenu.setItem(11, jumpBoost);
+    public Menu getMenu() {
+        if (menu == null) {
+            menu = createMenu();
+        }
+        return menu;
+    }
 
-        ItemStack nightVision = new ItemStack(Material.GOLDEN_CARROT, 1);
-        ItemMeta nightVisionMeta = nightVision.getItemMeta();
-        nightVisionMeta.displayName(Component.text("Night Vision", NamedTextColor.BLUE, TextDecoration.BOLD));
-        nightVisionMeta.lore(List.of(
-                Component.text("See clearly in the dark", NamedTextColor.GRAY)
-        ));
-        nightVision.setItemMeta(nightVisionMeta);
-        potionMenu.setItem(12, nightVision);
+    private Menu createMenu() {
+        List<SlotItem> items = List.of(
+            new SlotItem(
+                Component.text("Speed", NamedTextColor.AQUA, TextDecoration.BOLD),
+                10,
+                Material.SUGAR,
+                1
+            ),
+            new SlotItem(
+                Component.text("Jump Boost", NamedTextColor.GREEN, TextDecoration.BOLD),
+                11,
+                Material.RABBIT_FOOT,
+                1
+            ),
+            new SlotItem(
+                Component.text("Night Vision", NamedTextColor.BLUE, TextDecoration.BOLD),
+                12,
+                Material.GOLDEN_CARROT,
+                1
+            ),
+            new SlotItem(
+                Component.text("Water Breathing", NamedTextColor.AQUA, TextDecoration.BOLD),
+                13,
+                Material.PUFFERFISH,
+                1
+            ),
+            new SlotItem(
+                Component.text("Fire Resistance", NamedTextColor.GOLD, TextDecoration.BOLD),
+                14,
+                Material.MAGMA_CREAM,
+                1
+            ),
+            new SlotItem(
+                Component.text("Regeneration", NamedTextColor.LIGHT_PURPLE, TextDecoration.BOLD),
+                15,
+                Material.GHAST_TEAR,
+                1
+            ),
+            new SlotItem(
+                Component.text("Strength", NamedTextColor.RED, TextDecoration.BOLD),
+                16,
+                Material.BLAZE_POWDER,
+                1
+            ),
+            new SlotItem(
+                Component.text("Haste", NamedTextColor.YELLOW, TextDecoration.BOLD),
+                19,
+                Material.REDSTONE,
+                1
+            ),
+            new SlotItem(
+                Component.text("Resistance", NamedTextColor.DARK_GRAY, TextDecoration.BOLD),
+                20,
+                Material.IRON_INGOT,
+                1
+            ),
+            new SlotItem(
+                Component.text("Absorption", NamedTextColor.GOLD, TextDecoration.BOLD),
+                21,
+                Material.GOLDEN_APPLE,
+                1
+            ),
+            new SlotItem(
+                Component.text("Saturation", NamedTextColor.DARK_RED, TextDecoration.BOLD),
+                22,
+                Material.COOKED_BEEF,
+                1
+            ),
+            new SlotItem(
+                Component.text("Slow Falling", NamedTextColor.WHITE, TextDecoration.BOLD),
+                23,
+                Material.PHANTOM_MEMBRANE,
+                1
+            ),
+            new SlotItem(
+                Component.text("Luck", NamedTextColor.GREEN, TextDecoration.BOLD),
+                24,
+                Material.EMERALD,
+                1
+            ),
+            new SlotItem(
+                Component.text("Glowing", NamedTextColor.YELLOW, TextDecoration.BOLD),
+                25,
+                Material.GLOWSTONE_DUST,
+                1
+            ),
+            new SlotItem(
+                Component.text("Clear All Effects", NamedTextColor.RED, TextDecoration.BOLD),
+                40,
+                Material.BARRIER,
+                1
+            )
+        );
 
-        ItemStack waterBreathing = new ItemStack(Material.PUFFERFISH, 1);
-        ItemMeta waterBreathingMeta = waterBreathing.getItemMeta();
-        waterBreathingMeta.displayName(Component.text("Water Breathing", NamedTextColor.AQUA, TextDecoration.BOLD));
-        waterBreathingMeta.lore(List.of(
-                Component.text("Breathe underwater", NamedTextColor.GRAY)
-        ));
-        waterBreathing.setItemMeta(waterBreathingMeta);
-        potionMenu.setItem(13, waterBreathing);
+        List<SlotItem> fillerItems = MenuUtils.createFillerItems(
+            MENU_SIZE,
+            10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 40
+        );
 
-        ItemStack fireResistance = new ItemStack(Material.MAGMA_CREAM, 1);
-        ItemMeta fireResistanceMeta = fireResistance.getItemMeta();
-        fireResistanceMeta.displayName(Component.text("Fire Resistance", NamedTextColor.GOLD, TextDecoration.BOLD));
-        fireResistanceMeta.lore(List.of(
-                Component.text("Immunity to fire and lava", NamedTextColor.GRAY)
-        ));
-        fireResistance.setItemMeta(fireResistanceMeta);
-        potionMenu.setItem(14, fireResistance);
+        List<SlotItem> allItems = new ArrayList<>();
+        allItems.addAll(items);
+        allItems.addAll(fillerItems);
 
-        ItemStack regeneration = new ItemStack(Material.GHAST_TEAR, 1);
-        ItemMeta regenerationMeta = regeneration.getItemMeta();
-        regenerationMeta.displayName(Component.text("Regeneration", NamedTextColor.LIGHT_PURPLE, TextDecoration.BOLD));
-        regenerationMeta.lore(List.of(
-                Component.text("Gradually restores health", NamedTextColor.GRAY)
-        ));
-        regeneration.setItemMeta(regenerationMeta);
-        potionMenu.setItem(15, regeneration);
-
-        ItemStack strength = new ItemStack(Material.BLAZE_POWDER, 1);
-        ItemMeta strengthMeta = strength.getItemMeta();
-        strengthMeta.displayName(Component.text("Strength", NamedTextColor.RED, TextDecoration.BOLD));
-        strengthMeta.lore(List.of(
-                Component.text("Increases melee damage", NamedTextColor.GRAY)
-        ));
-        strength.setItemMeta(strengthMeta);
-        potionMenu.setItem(16, strength);
-
-        ItemStack haste = new ItemStack(Material.REDSTONE, 1);
-        ItemMeta hasteMeta = haste.getItemMeta();
-        hasteMeta.displayName(Component.text("Haste", NamedTextColor.YELLOW, TextDecoration.BOLD));
-        hasteMeta.lore(List.of(
-                Component.text("Increases mining speed", NamedTextColor.GRAY)
-        ));
-        haste.setItemMeta(hasteMeta);
-        potionMenu.setItem(19, haste);
-
-        ItemStack resistance = new ItemStack(Material.IRON_INGOT, 1);
-        ItemMeta resistanceMeta = resistance.getItemMeta();
-        resistanceMeta.displayName(Component.text("Resistance", NamedTextColor.DARK_GRAY, TextDecoration.BOLD));
-        resistanceMeta.lore(List.of(
-                Component.text("Reduces incoming damage", NamedTextColor.GRAY)
-        ));
-        resistance.setItemMeta(resistanceMeta);
-        potionMenu.setItem(20, resistance);
-
-        ItemStack absorption = new ItemStack(Material.GOLDEN_APPLE, 1);
-        ItemMeta absorptionMeta = absorption.getItemMeta();
-        absorptionMeta.displayName(Component.text("Absorption", NamedTextColor.GOLD, TextDecoration.BOLD));
-        absorptionMeta.lore(List.of(
-                Component.text("Adds extra hearts", NamedTextColor.GRAY)
-        ));
-        absorption.setItemMeta(absorptionMeta);
-        potionMenu.setItem(21, absorption);
-
-        ItemStack saturation = new ItemStack(Material.COOKED_BEEF, 1);
-        ItemMeta saturationMeta = saturation.getItemMeta();
-        saturationMeta.displayName(Component.text("Saturation", NamedTextColor.DARK_RED, TextDecoration.BOLD));
-        saturationMeta.lore(List.of(
-                Component.text("Restores hunger instantly", NamedTextColor.GRAY)
-        ));
-        saturation.setItemMeta(saturationMeta);
-        potionMenu.setItem(22, saturation);
-
-        ItemStack slowFalling = new ItemStack(Material.PHANTOM_MEMBRANE, 1);
-        ItemMeta slowFallingMeta = slowFalling.getItemMeta();
-        slowFallingMeta.displayName(Component.text("Slow Falling", NamedTextColor.WHITE, TextDecoration.BOLD));
-        slowFallingMeta.lore(List.of(
-                Component.text("Fall slowly and safely", NamedTextColor.GRAY)
-        ));
-        slowFalling.setItemMeta(slowFallingMeta);
-        potionMenu.setItem(23, slowFalling);
-
-        ItemStack luck = new ItemStack(Material.EMERALD, 1);
-        ItemMeta luckMeta = luck.getItemMeta();
-        luckMeta.displayName(Component.text("Luck", NamedTextColor.GREEN, TextDecoration.BOLD));
-        luckMeta.lore(List.of(
-                Component.text("Increases luck attribute", NamedTextColor.GRAY)
-        ));
-        luck.setItemMeta(luckMeta);
-        potionMenu.setItem(24, luck);
-
-        ItemStack glowing = new ItemStack(Material.GLOWSTONE_DUST, 1);
-        ItemMeta glowingMeta = glowing.getItemMeta();
-        glowingMeta.displayName(Component.text("Glowing", NamedTextColor.YELLOW, TextDecoration.BOLD));
-        glowingMeta.lore(List.of(
-                Component.text("Outline yourself with glow", NamedTextColor.GRAY)
-        ));
-        glowing.setItemMeta(glowingMeta);
-        potionMenu.setItem(25, glowing);
-
-        ItemStack clearEffects = new ItemStack(Material.BARRIER, 1);
-        ItemMeta clearEffectsMeta = clearEffects.getItemMeta();
-        clearEffectsMeta.displayName(Component.text("Clear All Effects", NamedTextColor.RED, TextDecoration.BOLD));
-        clearEffectsMeta.lore(List.of(
-                Component.text("Remove all active potion effects", NamedTextColor.GRAY)
-        ));
-        clearEffects.setItemMeta(clearEffectsMeta);
-        potionMenu.setItem(40, clearEffects);
-
-        fillMenu(potionMenu);
-        return potionMenu;
+        return Menu.newBuilder()
+            .plugin(plugin)
+            .size(MENU_SIZE)
+            .title(MENU_TITLE)
+            .items(allItems.toArray(new SlotItem[0]))
+            .build();
     }
 
     @Execute
     public void potion(@Context Player player) {
-        player.openInventory(getMenu());
+        player.openInventory(getMenu().getInventory());
     }
 }

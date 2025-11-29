@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.jetbrains.annotations.NotNull;
 
-public record FlyMenuListener() implements Listener {
+public class FlyMenuListener implements Listener {
 
     @EventHandler
     public void onFlySet(@NotNull InventoryClickEvent event) {

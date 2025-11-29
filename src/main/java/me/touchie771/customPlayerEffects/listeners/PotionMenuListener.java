@@ -11,7 +11,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
-public record PotionMenuListener() implements Listener {
+public class PotionMenuListener implements Listener {
 
     private static final int INFINITE_DURATION = 999999;
     private static final int EFFECT_AMPLIFIER = 0;
