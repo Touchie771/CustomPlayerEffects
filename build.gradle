@@ -17,6 +17,13 @@ repositories {
         name = "panda-repository"
         url = "https://repo.panda-lang.org/releases"
     }
+    maven {
+        url = uri("https://maven.pkg.github.com/Touchie771/MinecraftGUI")
+        credentials {
+            username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+            password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+        }
+    }
 }
 
 dependencies {
@@ -24,6 +31,9 @@ dependencies {
     
     // LiteCommands
     implementation("dev.rollczi:litecommands-bukkit:3.9.3")
+
+    // GUI library
+    implementation("me.touchie771:minecraftgui:1.1.0")
 }
 
 tasks {
