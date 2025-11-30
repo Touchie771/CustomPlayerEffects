@@ -5,7 +5,6 @@ import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import me.touchie771.minecraftGUI.api.Menu;
 import me.touchie771.minecraftGUI.api.SlotItem;
-import me.touchie771.customPlayerEffects.utils.MenuUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -15,7 +14,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @dev.rollczi.litecommands.annotations.command.Command(name = "settime")
@@ -41,52 +39,60 @@ public class TimeCommand {
 
     private Menu createMenu() {
         List<SlotItem> items = List.of(
-            new SlotItem(
-                Component.text("Day", NamedTextColor.GOLD, TextDecoration.BOLD),
-                11,
-                Material.SUNFLOWER,
-                1
-            ),
-            new SlotItem(
-                Component.text("Noon", NamedTextColor.YELLOW, TextDecoration.BOLD),
-                12,
-                Material.DAYLIGHT_DETECTOR,
-                1
-            ),
-            new SlotItem(
-                Component.text("Reset Time", NamedTextColor.RED, TextDecoration.BOLD),
-                13,
-                Material.BARRIER,
-                1
-            ),
-            new SlotItem(
-                Component.text("Night", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD),
-                14,
-                Material.ENDER_EYE,
-                1
-            ),
-            new SlotItem(
-                Component.text("Midnight", NamedTextColor.DARK_GRAY, TextDecoration.BOLD),
-                15,
-                Material.OBSIDIAN,
-                1
-            )
+            SlotItem.builder(11)
+                .itemName(Component.text("Day", NamedTextColor.GOLD, TextDecoration.BOLD))
+                .material(Material.SUNFLOWER)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Sets time to 1000 (daytime)", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(12)
+                .itemName(Component.text("Noon", NamedTextColor.YELLOW, TextDecoration.BOLD))
+                .material(Material.DAYLIGHT_DETECTOR)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Sets time to 6000 (noon)", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(13)
+                .itemName(Component.text("Reset Time", NamedTextColor.RED, TextDecoration.BOLD))
+                .material(Material.BARRIER)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Resets to natural time flow", NamedTextColor.GRAY),
+                    Component.text("Click to reset", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(14)
+                .itemName(Component.text("Night", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD))
+                .material(Material.ENDER_EYE)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Sets time to 13000 (night)", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(15)
+                .itemName(Component.text("Midnight", NamedTextColor.DARK_GRAY, TextDecoration.BOLD))
+                .material(Material.OBSIDIAN)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Sets time to 18000 (midnight)", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build()
         );
 
-        List<SlotItem> fillerItems = MenuUtils.createFillerItems(
-            MENU_SIZE,
-            11, 12, 13, 14, 15
-        );
-
-        List<SlotItem> allItems = new ArrayList<>();
-        allItems.addAll(items);
-        allItems.addAll(fillerItems);
-
+        // Use the new fill capability instead of manual filler items
         return Menu.newBuilder()
             .plugin(plugin)
             .size(MENU_SIZE)
             .title(MENU_TITLE)
-            .items(allItems.toArray(new SlotItem[0]))
+            .items(items.toArray(new SlotItem[0]))
+            .fillExcept(Material.GRAY_STAINED_GLASS_PANE, 11, 12, 13, 14, 15)
             .build();
     }
 

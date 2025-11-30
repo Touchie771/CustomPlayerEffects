@@ -5,7 +5,6 @@ import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import me.touchie771.minecraftGUI.api.Menu;
 import me.touchie771.minecraftGUI.api.SlotItem;
-import me.touchie771.customPlayerEffects.utils.MenuUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -15,7 +14,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @dev.rollczi.litecommands.annotations.command.Command(name = "setpotion")
@@ -41,112 +39,150 @@ public class PotionCommand {
 
     private Menu createMenu() {
         List<SlotItem> items = List.of(
-            new SlotItem(
-                Component.text("Speed", NamedTextColor.AQUA, TextDecoration.BOLD),
-                10,
-                Material.SUGAR,
-                1
-            ),
-            new SlotItem(
-                Component.text("Jump Boost", NamedTextColor.GREEN, TextDecoration.BOLD),
-                11,
-                Material.RABBIT_FOOT,
-                1
-            ),
-            new SlotItem(
-                Component.text("Night Vision", NamedTextColor.BLUE, TextDecoration.BOLD),
-                12,
-                Material.GOLDEN_CARROT,
-                1
-            ),
-            new SlotItem(
-                Component.text("Water Breathing", NamedTextColor.AQUA, TextDecoration.BOLD),
-                13,
-                Material.PUFFERFISH,
-                1
-            ),
-            new SlotItem(
-                Component.text("Fire Resistance", NamedTextColor.GOLD, TextDecoration.BOLD),
-                14,
-                Material.MAGMA_CREAM,
-                1
-            ),
-            new SlotItem(
-                Component.text("Regeneration", NamedTextColor.LIGHT_PURPLE, TextDecoration.BOLD),
-                15,
-                Material.GHAST_TEAR,
-                1
-            ),
-            new SlotItem(
-                Component.text("Strength", NamedTextColor.RED, TextDecoration.BOLD),
-                16,
-                Material.BLAZE_POWDER,
-                1
-            ),
-            new SlotItem(
-                Component.text("Haste", NamedTextColor.YELLOW, TextDecoration.BOLD),
-                19,
-                Material.REDSTONE,
-                1
-            ),
-            new SlotItem(
-                Component.text("Resistance", NamedTextColor.DARK_GRAY, TextDecoration.BOLD),
-                20,
-                Material.IRON_INGOT,
-                1
-            ),
-            new SlotItem(
-                Component.text("Absorption", NamedTextColor.GOLD, TextDecoration.BOLD),
-                21,
-                Material.GOLDEN_APPLE,
-                1
-            ),
-            new SlotItem(
-                Component.text("Saturation", NamedTextColor.DARK_RED, TextDecoration.BOLD),
-                22,
-                Material.COOKED_BEEF,
-                1
-            ),
-            new SlotItem(
-                Component.text("Slow Falling", NamedTextColor.WHITE, TextDecoration.BOLD),
-                23,
-                Material.PHANTOM_MEMBRANE,
-                1
-            ),
-            new SlotItem(
-                Component.text("Luck", NamedTextColor.GREEN, TextDecoration.BOLD),
-                24,
-                Material.EMERALD,
-                1
-            ),
-            new SlotItem(
-                Component.text("Glowing", NamedTextColor.YELLOW, TextDecoration.BOLD),
-                25,
-                Material.GLOWSTONE_DUST,
-                1
-            ),
-            new SlotItem(
-                Component.text("Clear All Effects", NamedTextColor.RED, TextDecoration.BOLD),
-                40,
-                Material.BARRIER,
-                1
-            )
+            SlotItem.builder(10)
+                .itemName(Component.text("Speed", NamedTextColor.AQUA, TextDecoration.BOLD))
+                .material(Material.SUGAR)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Increases movement speed", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(11)
+                .itemName(Component.text("Jump Boost", NamedTextColor.GREEN, TextDecoration.BOLD))
+                .material(Material.RABBIT_FOOT)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Increases jump height", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(12)
+                .itemName(Component.text("Night Vision", NamedTextColor.BLUE, TextDecoration.BOLD))
+                .material(Material.GOLDEN_CARROT)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("See in the dark", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(13)
+                .itemName(Component.text("Water Breathing", NamedTextColor.AQUA, TextDecoration.BOLD))
+                .material(Material.PUFFERFISH)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Breathe underwater", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(14)
+                .itemName(Component.text("Fire Resistance", NamedTextColor.GOLD, TextDecoration.BOLD))
+                .material(Material.MAGMA_CREAM)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Immunity to fire damage", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(15)
+                .itemName(Component.text("Regeneration", NamedTextColor.LIGHT_PURPLE, TextDecoration.BOLD))
+                .material(Material.GHAST_TEAR)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Regenerates health over time", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(16)
+                .itemName(Component.text("Strength", NamedTextColor.RED, TextDecoration.BOLD))
+                .material(Material.BLAZE_POWDER)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Increases melee damage", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(19)
+                .itemName(Component.text("Haste", NamedTextColor.YELLOW, TextDecoration.BOLD))
+                .material(Material.REDSTONE)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Increases mining/attack speed", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(20)
+                .itemName(Component.text("Resistance", NamedTextColor.DARK_GRAY, TextDecoration.BOLD))
+                .material(Material.IRON_INGOT)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Reduces incoming damage", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(21)
+                .itemName(Component.text("Absorption", NamedTextColor.GOLD, TextDecoration.BOLD))
+                .material(Material.GOLDEN_APPLE)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Adds extra health hearts", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(22)
+                .itemName(Component.text("Saturation", NamedTextColor.DARK_RED, TextDecoration.BOLD))
+                .material(Material.COOKED_BEEF)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Restores hunger and saturation", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(23)
+                .itemName(Component.text("Slow Falling", NamedTextColor.WHITE, TextDecoration.BOLD))
+                .material(Material.PHANTOM_MEMBRANE)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Fall slowly without damage", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(24)
+                .itemName(Component.text("Luck", NamedTextColor.GREEN, TextDecoration.BOLD))
+                .material(Material.EMERALD)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Improves loot chances", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(25)
+                .itemName(Component.text("Glowing", NamedTextColor.YELLOW, TextDecoration.BOLD))
+                .material(Material.GLOWSTONE_DUST)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Makes player outline visible", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(40)
+                .itemName(Component.text("Clear All Effects", NamedTextColor.RED, TextDecoration.BOLD))
+                .material(Material.BARRIER)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Removes all active effects", NamedTextColor.GRAY),
+                    Component.text("Click to clear", NamedTextColor.DARK_GRAY)
+                ))
+                .build()
         );
 
-        List<SlotItem> fillerItems = MenuUtils.createFillerItems(
-            MENU_SIZE,
-            10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 40
-        );
-
-        List<SlotItem> allItems = new ArrayList<>();
-        allItems.addAll(items);
-        allItems.addAll(fillerItems);
-
+        // Use the new fill capability instead of manual filler items
         return Menu.newBuilder()
             .plugin(plugin)
             .size(MENU_SIZE)
             .title(MENU_TITLE)
-            .items(allItems.toArray(new SlotItem[0]))
+            .items(items.toArray(new SlotItem[0]))
+            .fillExcept(Material.GRAY_STAINED_GLASS_PANE, 10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 40)
             .build();
     }
 

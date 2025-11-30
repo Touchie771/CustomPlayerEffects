@@ -5,7 +5,6 @@ import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import me.touchie771.minecraftGUI.api.Menu;
 import me.touchie771.minecraftGUI.api.SlotItem;
-import me.touchie771.customPlayerEffects.utils.MenuUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -15,7 +14,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @dev.rollczi.litecommands.annotations.command.Command(name = "setfly")
@@ -41,58 +39,69 @@ public class FlyCommand {
 
     private Menu createMenu() {
         List<SlotItem> items = List.of(
-            new SlotItem(
-                Component.text("Toggle Flight", NamedTextColor.AQUA, TextDecoration.BOLD),
-                13,
-                Material.ELYTRA,
-                1
-            ),
-            new SlotItem(
-                Component.text("Slow Fly Speed", NamedTextColor.GREEN, TextDecoration.BOLD),
-                11,
-                Material.FEATHER,
-                1
-            ),
-            new SlotItem(
-                Component.text("Normal Fly Speed", NamedTextColor.YELLOW, TextDecoration.BOLD),
-                12,
-                Material.WIND_CHARGE,
-                1
-            ),
-            new SlotItem(
-                Component.text("Fast Fly Speed", NamedTextColor.GOLD, TextDecoration.BOLD),
-                14,
-                Material.FIREWORK_ROCKET,
-                1
-            ),
-            new SlotItem(
-                Component.text("Very Fast Fly Speed", NamedTextColor.RED, TextDecoration.BOLD),
-                15,
-                Material.BLAZE_POWDER,
-                1
-            ),
-            new SlotItem(
-                Component.text("Reset Flight", NamedTextColor.RED, TextDecoration.BOLD),
-                22,
-                Material.BARRIER,
-                1
-            )
+            SlotItem.builder(13)
+                .itemName(Component.text("Toggle Flight", NamedTextColor.AQUA, TextDecoration.BOLD))
+                .material(Material.ELYTRA)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Enable or disable flight mode", NamedTextColor.GRAY),
+                    Component.text("Click to toggle", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(11)
+                .itemName(Component.text("Slow Fly Speed", NamedTextColor.GREEN, TextDecoration.BOLD))
+                .material(Material.FEATHER)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Sets fly speed to 0.5x", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(12)
+                .itemName(Component.text("Normal Fly Speed", NamedTextColor.YELLOW, TextDecoration.BOLD))
+                .material(Material.WIND_CHARGE)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Sets fly speed to 1.0x (default)", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(14)
+                .itemName(Component.text("Fast Fly Speed", NamedTextColor.GOLD, TextDecoration.BOLD))
+                .material(Material.FIREWORK_ROCKET)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Sets fly speed to 1.5x", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(15)
+                .itemName(Component.text("Very Fast Fly Speed", NamedTextColor.RED, TextDecoration.BOLD))
+                .material(Material.BLAZE_POWDER)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Sets fly speed to 2.0x", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(22)
+                .itemName(Component.text("Reset Flight", NamedTextColor.RED, TextDecoration.BOLD))
+                .material(Material.BARRIER)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Disables flight and resets speed", NamedTextColor.GRAY),
+                    Component.text("Click to reset", NamedTextColor.DARK_GRAY)
+                ))
+                .build()
         );
 
-        List<SlotItem> fillerItems = MenuUtils.createFillerItems(
-            MENU_SIZE,
-            11, 12, 13, 14, 15, 22
-        );
-
-        List<SlotItem> allItems = new ArrayList<>();
-        allItems.addAll(items);
-        allItems.addAll(fillerItems);
-
+        // Use the new fill capability instead of manual filler items
         return Menu.newBuilder()
             .plugin(plugin)
             .size(MENU_SIZE)
             .title(MENU_TITLE)
-            .items(allItems.toArray(new SlotItem[0]))
+            .items(items.toArray(new SlotItem[0]))
+            .fillExcept(Material.GRAY_STAINED_GLASS_PANE, 11, 12, 13, 14, 15, 22)
             .build();
     }
 

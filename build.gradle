@@ -33,7 +33,7 @@ dependencies {
     implementation("dev.rollczi:litecommands-bukkit:3.9.3")
 
     // GUI library
-    implementation("me.touchie771:minecraftgui:1.1.0")
+    implementation("me.touchie771:minecraftgui:1.1.5")
 }
 
 tasks {

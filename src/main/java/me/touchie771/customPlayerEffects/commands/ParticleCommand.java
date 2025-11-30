@@ -5,7 +5,6 @@ import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import me.touchie771.minecraftGUI.api.Menu;
 import me.touchie771.minecraftGUI.api.SlotItem;
-import me.touchie771.customPlayerEffects.utils.MenuUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -15,7 +14,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @dev.rollczi.litecommands.annotations.command.Command(name = "setparticle")
@@ -41,118 +39,159 @@ public class ParticleCommand {
 
     private Menu createMenu() {
         List<SlotItem> items = List.of(
-            new SlotItem(
-                Component.text("Hearts", NamedTextColor.RED, TextDecoration.BOLD),
-                10,
-                Material.RED_DYE,
-                1
-            ),
-            new SlotItem(
-                Component.text("Flames", NamedTextColor.GOLD, TextDecoration.BOLD),
-                11,
-                Material.BLAZE_POWDER,
-                1
-            ),
-            new SlotItem(
-                Component.text("Enchantment", NamedTextColor.AQUA, TextDecoration.BOLD),
-                12,
-                Material.ENCHANTED_BOOK,
-                1
-            ),
-            new SlotItem(
-                Component.text("Sparkles", NamedTextColor.YELLOW, TextDecoration.BOLD),
-                13,
-                Material.GLOWSTONE_DUST,
-                1
-            ),
-            new SlotItem(
-                Component.text("Smoke", NamedTextColor.DARK_GRAY, TextDecoration.BOLD),
-                14,
-                Material.COAL,
-                1
-            ),
-            new SlotItem(
-                Component.text("Portal", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD),
-                15,
-                Material.ENDER_PEARL,
-                1
-            ),
-            new SlotItem(
-                Component.text("Musical Notes", NamedTextColor.GREEN, TextDecoration.BOLD),
-                16,
-                Material.NOTE_BLOCK,
-                1
-            ),
-            new SlotItem(
-                Component.text("Happy Villager", NamedTextColor.GREEN, TextDecoration.BOLD),
-                19,
-                Material.EMERALD,
-                1
-            ),
-            new SlotItem(
-                Component.text("Cloud", NamedTextColor.WHITE, TextDecoration.BOLD),
-                20,
-                Material.WHITE_WOOL,
-                1
-            ),
-            new SlotItem(
-                Component.text("Water Drip", NamedTextColor.BLUE, TextDecoration.BOLD),
-                21,
-                Material.WATER_BUCKET,
-                1
-            ),
-            new SlotItem(
-                Component.text("Lava Drip", NamedTextColor.GOLD, TextDecoration.BOLD),
-                22,
-                Material.LAVA_BUCKET,
-                1
-            ),
-            new SlotItem(
-                Component.text("Totem", NamedTextColor.GOLD, TextDecoration.BOLD),
-                23,
-                Material.TOTEM_OF_UNDYING,
-                1
-            ),
-            new SlotItem(
-                Component.text("Snowflake", NamedTextColor.WHITE, TextDecoration.BOLD),
-                24,
-                Material.SNOWBALL,
-                1
-            ),
-            new SlotItem(
-                Component.text("End Rod", NamedTextColor.WHITE, TextDecoration.BOLD),
-                25,
-                Material.END_ROD,
-                1
-            ),
-            new SlotItem(
-                Component.text("Soul", NamedTextColor.AQUA, TextDecoration.BOLD),
-                28,
-                Material.SOUL_SAND,
-                1
-            ),
-            new SlotItem(
-                Component.text("Clear Particles", NamedTextColor.RED, TextDecoration.BOLD),
-                40,
-                Material.BARRIER,
-                1
-            )
+            SlotItem.builder(10)
+                .itemName(Component.text("Hearts", NamedTextColor.RED, TextDecoration.BOLD))
+                .material(Material.RED_DYE)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Displays heart particles", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(11)
+                .itemName(Component.text("Flames", NamedTextColor.GOLD, TextDecoration.BOLD))
+                .material(Material.BLAZE_POWDER)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Displays flame particles", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(12)
+                .itemName(Component.text("Enchantment", NamedTextColor.AQUA, TextDecoration.BOLD))
+                .material(Material.ENCHANTED_BOOK)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Displays enchantment particles", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(13)
+                .itemName(Component.text("Sparkles", NamedTextColor.YELLOW, TextDecoration.BOLD))
+                .material(Material.GLOWSTONE_DUST)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Displays sparkle particles", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(14)
+                .itemName(Component.text("Smoke", NamedTextColor.DARK_GRAY, TextDecoration.BOLD))
+                .material(Material.COAL)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Displays smoke particles", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(15)
+                .itemName(Component.text("Portal", NamedTextColor.DARK_PURPLE, TextDecoration.BOLD))
+                .material(Material.ENDER_PEARL)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Displays portal particles", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(16)
+                .itemName(Component.text("Musical Notes", NamedTextColor.GREEN, TextDecoration.BOLD))
+                .material(Material.NOTE_BLOCK)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Displays musical note particles", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(19)
+                .itemName(Component.text("Happy Villager", NamedTextColor.GREEN, TextDecoration.BOLD))
+                .material(Material.EMERALD)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Displays happy villager particles", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(20)
+                .itemName(Component.text("Cloud", NamedTextColor.WHITE, TextDecoration.BOLD))
+                .material(Material.WHITE_WOOL)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Displays cloud particles", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(21)
+                .itemName(Component.text("Water Drip", NamedTextColor.BLUE, TextDecoration.BOLD))
+                .material(Material.WATER_BUCKET)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Displays water drip particles", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(22)
+                .itemName(Component.text("Lava Drip", NamedTextColor.GOLD, TextDecoration.BOLD))
+                .material(Material.LAVA_BUCKET)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Displays lava drip particles", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(23)
+                .itemName(Component.text("Totem", NamedTextColor.GOLD, TextDecoration.BOLD))
+                .material(Material.TOTEM_OF_UNDYING)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Displays totem particles", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(24)
+                .itemName(Component.text("Snowflake", NamedTextColor.WHITE, TextDecoration.BOLD))
+                .material(Material.SNOWBALL)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Displays snowflake particles", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(25)
+                .itemName(Component.text("End Rod", NamedTextColor.WHITE, TextDecoration.BOLD))
+                .material(Material.END_ROD)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Displays end rod particles", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(28)
+                .itemName(Component.text("Soul", NamedTextColor.AQUA, TextDecoration.BOLD))
+                .material(Material.SOUL_SAND)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Displays soul particles", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(40)
+                .itemName(Component.text("Clear Particles", NamedTextColor.RED, TextDecoration.BOLD))
+                .material(Material.BARRIER)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Removes all particle effects", NamedTextColor.GRAY),
+                    Component.text("Click to clear", NamedTextColor.DARK_GRAY)
+                ))
+                .build()
         );
 
-        List<SlotItem> fillerItems = MenuUtils.createFillerItems(
-            MENU_SIZE,
-            10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 40
-        );
-
-        List<SlotItem> allItems = new ArrayList<>();
-        allItems.addAll(items);
-        allItems.addAll(fillerItems);
-
+        // Use the new fill capability instead of manual filler items
         return Menu.newBuilder()
             .plugin(plugin)
             .size(MENU_SIZE)
             .title(MENU_TITLE)
-            .items(allItems.toArray(new SlotItem[0]))
+            .items(items.toArray(new SlotItem[0]))
+            .fillExcept(Material.GRAY_STAINED_GLASS_PANE, 10, 11, 12, 13, 14, 15, 16, 19, 20, 21, 22, 23, 24, 25, 28, 40)
             .build();
     }
 

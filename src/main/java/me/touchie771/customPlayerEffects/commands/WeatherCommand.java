@@ -5,7 +5,6 @@ import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import me.touchie771.minecraftGUI.api.Menu;
 import me.touchie771.minecraftGUI.api.SlotItem;
-import me.touchie771.customPlayerEffects.utils.MenuUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -14,7 +13,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @dev.rollczi.litecommands.annotations.command.Command(name = "setweather")
@@ -41,46 +39,51 @@ public class WeatherCommand {
 
     private Menu createMenu() {
         List<SlotItem> items = List.of(
-            new SlotItem(
-                Component.text("Clear Weather", NamedTextColor.AQUA, TextDecoration.BOLD),
-                12,
-                Material.SUNFLOWER,
-                1
-            ),
-            new SlotItem(
-                Component.text("Rain Weather", NamedTextColor.AQUA, TextDecoration.BOLD),
-                13,
-                Material.WATER_BUCKET,
-                1
-            ),
-            new SlotItem(
-                Component.text("Thunder Weather", NamedTextColor.DARK_BLUE, TextDecoration.BOLD),
-                14,
-                Material.LIGHTNING_ROD,
-                1
-            ),
-            new SlotItem(
-                Component.text("Reset Weather", NamedTextColor.RED, TextDecoration.BOLD),
-                22,
-                Material.BARRIER,
-                1
-            )
+            SlotItem.builder(12)
+                .itemName(Component.text("Clear Weather", NamedTextColor.AQUA, TextDecoration.BOLD))
+                .material(Material.SUNFLOWER)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Clears all weather", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(13)
+                .itemName(Component.text("Rain Weather", NamedTextColor.AQUA, TextDecoration.BOLD))
+                .material(Material.WATER_BUCKET)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Starts rain", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(14)
+                .itemName(Component.text("Thunder Weather", NamedTextColor.DARK_BLUE, TextDecoration.BOLD))
+                .material(Material.LIGHTNING_ROD)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Starts thunderstorm", NamedTextColor.GRAY),
+                    Component.text("Click to apply", NamedTextColor.DARK_GRAY)
+                ))
+                .build(),
+            SlotItem.builder(22)
+                .itemName(Component.text("Reset Weather", NamedTextColor.RED, TextDecoration.BOLD))
+                .material(Material.BARRIER)
+                .quantity(1)
+                .lore(List.of(
+                    Component.text("Resets to natural weather", NamedTextColor.GRAY),
+                    Component.text("Click to reset", NamedTextColor.DARK_GRAY)
+                ))
+                .build()
         );
 
-        List<SlotItem> fillerItems = MenuUtils.createFillerItems(
-            MENU_SIZE,
-            12, 13, 14, 22
-        );
-
-        List<SlotItem> allItems = new ArrayList<>();
-        allItems.addAll(items);
-        allItems.addAll(fillerItems);
-
+        // Use the new fill capability instead of manual filler items
         return Menu.newBuilder()
             .plugin(plugin)
             .size(MENU_SIZE)
             .title(MENU_TITLE)
-            .items(allItems.toArray(new SlotItem[0]))
+            .items(items.toArray(new SlotItem[0]))
+            .fillExcept(Material.GRAY_STAINED_GLASS_PANE, 12, 13, 14, 22)
             .build();
     }
 
